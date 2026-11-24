@@ -32,7 +32,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple
 .dayhead h2{margin:0;font-size:20px;font-weight:800}
 .nav{border:0;background:var(--bg);color:var(--ink);width:40px;height:40px;border-radius:14px;font:inherit;font-size:18px;cursor:pointer}
 .date{color:var(--mut);font-size:13px}
-.read{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:16px;padding:12px 14px;margin-top:10px;font-weight:800;font-size:18px}
+.read{width:100%;display:flex;align-items:center;gap:10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:10px;font:inherit;font-weight:800;font-size:18px;cursor:pointer;text-align:right;transition:transform .15s,border-color .15s}.read:hover{border-color:var(--pri)}.read:active{transform:scale(.98)}.read:focus-visible{outline:3px solid var(--gold);outline-offset:2px}.read em{margin-right:auto;font-style:normal;font-size:13px;font-weight:700;color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,transparent);padding:3px 10px;border-radius:999px}
 .read i{font-style:normal;font-size:20px}
 .btn{width:100%;margin-top:14px;border:0;border-radius:18px;padding:14px;font:inherit;font-weight:900;font-size:18px;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));cursor:pointer;transition:transform .15s}
 .btn:active{transform:scale(.97)}
@@ -77,6 +77,38 @@ html{background:var(--bg)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--k1:#0B0920;--k2:#2A2370;--h1:#2B2673;--h2:#1C1850;--tr:#0F0C33}}
 :root[data-theme="dark"]{--k1:#0B0920;--k2:#2A2370;--h1:#2B2673;--h2:#1C1850;--tr:#0F0C33}
 .w{padding-bottom:230px}
+.rdr{position:fixed;inset:0;z-index:50;display:none;background:rgba(12,10,32,.65);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center}
+.rdr.open{display:flex}
+.rdr-box{width:100%;max-width:600px;height:92vh;height:92dvh;background:var(--card);color:var(--ink);border-radius:26px 26px 0 0;border:1px solid var(--line);border-bottom:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -10px 40px rgba(0,0,0,.35)}
+.rdr-hd{display:flex;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--card)}
+.rdr-hd h3{margin:0;font-size:18px;font-weight:900;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rdr-ctl{border:1px solid var(--line);background:var(--bg);color:var(--ink);height:36px;min-width:36px;padding:0 10px;border-radius:12px;font:inherit;font-weight:800;font-size:14px;cursor:pointer}
+.rdr-ctl:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.rdr-tabs{display:flex;gap:6px;padding:10px 16px;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--bg);flex:none}
+.rdr-tab{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 13px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.rdr-tab.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.rdr-body{flex:1;overflow-y:auto;padding:18px 20px calc(24px + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch}
+.rdr-v{margin:0 0 12px;line-height:2.1}
+.rdr-v sup{color:var(--pri);font-weight:900;font-size:.72em;margin-left:5px}
+.rdr-msg{text-align:center;color:var(--mut);padding:40px 12px;font-weight:700}
+.rdr-ft{display:flex;gap:8px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
+.rdr-ft button{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:11px 12px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.rdr-ft button.pri{border:0;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff}
+.rdr-ft button.ok{border:0;background:var(--ok);color:#fff}
+.rdr-ft button:disabled{opacity:.4;cursor:default}
+.rdr-src{text-align:center;color:var(--mut);font-size:12px;margin-top:14px}
+body.noscroll{overflow:hidden}
+.inst{display:none;background:color-mix(in srgb,var(--card) 94%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1.5px solid var(--pri);border-radius:20px;padding:12px 14px;margin:12px 0;gap:10px;flex-direction:column}
+.inst.show{display:flex}
+.inst-top{display:flex;align-items:center;gap:10px}
+.inst-ic{font-size:24px;flex:none}
+.inst-txt{flex:1;min-width:0}
+.inst-txt b{display:block;font-size:15px;font-weight:900}
+.inst-txt span{display:block;font-size:12px;color:var(--mut)}
+.inst-go{flex:none;border:0;border-radius:12px;padding:8px 14px;font:inherit;font-weight:900;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));cursor:pointer}
+.inst-x{flex:none;border:0;background:transparent;color:var(--mut);font:inherit;font-size:16px;padding:4px 6px;cursor:pointer}
+.inst-tip{display:none;font-size:13px;background:var(--bg);border-radius:12px;padding:8px 10px;color:var(--ink)}
+.inst-tip.show{display:block}
 </style>
 </head>
 <body>
@@ -103,6 +135,15 @@ html{background:var(--bg)}
       <polygon points="50,6 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38" fill="url(#g)" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
     </svg>
     <div><h1>الحب إتولد 👶❤️</h1><p>العهد الجديد كله في صوم الميلاد. كل يوم خطوة، والنجمة بتنوّر.</p></div>
+  </div>
+  <div class="inst" id="inst">
+    <div class="inst-top">
+      <span class="inst-ic">📲</span>
+      <div class="inst-txt"><b>ثبّت التطبيق على جهازك</b><span>يفتح بسرعة ويشتغل أوفلاين بدون إنترنت</span></div>
+      <button type="button" class="inst-go" id="inst-go">تثبيت</button>
+      <button type="button" class="inst-x" id="inst-x" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="inst-tip" id="inst-tip">لتثبيت التطبيق على الآيفون: اضغط على زر المشاركة <b>(⬆️)</b> في المتصفح ثم اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.</div>
   </div>
   <div class="stats">
     <div class="stat"><b id="pct">0%</b><span>من العهد الجديد</span></div>
@@ -139,6 +180,18 @@ html{background:var(--bg)}
   </div>
   <div class="foot">«أَيُّهَا السَّيِّدُ، قَدْ صَارَ كَمَا أَمَرْتَ، وَيُوجَدُ أَيْضاً مَكَانٌ» (لو 14: 22)<br><button class="tg" id="th">تغيير الوضع: فاتح / داكن</button></div>
 </div>
+<div class="rdr" id="rdr" role="dialog" aria-modal="true" aria-labelledby="rdr-t">
+  <div class="rdr-box">
+    <div class="rdr-hd">
+      <h3 id="rdr-t"></h3>
+      <button type="button" class="rdr-ctl" id="fs-m" aria-label="تصغير الخط">أ-</button>
+      <button type="button" class="rdr-ctl" id="fs-p" aria-label="تكبير الخط">أ+</button>
+      <button type="button" class="rdr-ctl" id="rdr-x" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="rdr-tabs" id="rdr-tabs"></div>
+    <div class="rdr-body" id="rdr-b"></div>
+  </div>
+</div>
 <script>
 var B=[["متى",28],["مرقس",16],["لوقا",24],["يوحنا",21],["أعمال الرسل",28],["رومية",16],["١ كورنثوس",16],["٢ كورنثوس",13],["غلاطية",6],["أفسس",6],["فيلبي",4],["كولوسي",4],["١ تسالونيكي",5],["٢ تسالونيكي",3],["١ تيموثاوس",6],["٢ تيموثاوس",4],["تيطس",3],["فليمون",1],["العبرانيين",13],["يعقوب",5],["١ بطرس",5],["٢ بطرس",3],["١ يوحنا",5],["٢ يوحنا",1],["٣ يوحنا",1],["يهوذا",1],["رؤيا يوحنا",22]];
 var R=[["الأفضل أن تكون حياتنا نقية لدرجة أن تكون نعمة الروح القدس هي الكتاب المكتوب في قلوبنا.", "القديس يوحنا ذهبي الفم"], ["لا يكفي أن نسمع وصايا المسيح، بل يجب أن تتحول إلى حياة نعيشها.", "القديس يوحنا ذهبي الفم"], ["التواضع هو أم كل الفضائل وأساسها وجذرها.", "القديس يوحنا ذهبي الفم"], ["اتباع المسيح ليس مجرد كلام، لكنه أن نقلده في أفعالنا.", "القديس يوحنا ذهبي الفم"], ["المسيح لم يأتِ ليطلب منك أن تكون بلا خطية قبل أن تأتي إليه، بل جاء ليشفيك ويحررك.", "القديس يوحنا ذهبي الفم"], ["صار ابن الله إنسانًا لكي نصير نحن أبناء الله بالنعمة.", "القديس أثناسيوس الرسولي"], ["الاتحاد بالمسيح ليس مجرد معرفة عنه، بل شركة حقيقية معه تمنحنا الحياة.", "القديس كيرلس الكبير"], ["المسيح اقترب من طبيعتنا البشرية، لا ليبقى مثلنا في ضعفها، بل ليرفعها إلى الحياة الجديدة.", "القديس كيرلس الإسكندري"], ["التواضع الحقيقي يجعل الإنسان فقيرًا من الكبرياء، غنيًا بمحبة الله.", "القديس كيرلس الإسكندري"], ["لا يوجد شيء يشبه الله قدر الرحمة؛ لذلك لنقتدِ به في رحمته.", "القديس يوحنا ذهبي الفم"], ["حين نسامح الآخرين، لا نكون قد أحسنا إليهم فقط، بل نكون قد أنقذنا نفوسنا من مرارة الغضب.", "القديس يوحنا ذهبي الفم"], ["المسيح أخذ جسدًا قابلًا للموت لكي يقدم هذا الجسد للموت نيابة عنا، ويمنحنا عدم الموت.", "القديس أثناسيوس الرسولي"], ["لا شيء يقدر أن يفصلنا عن محبة الله إلا أن نختار نحن الابتعاد عنه.", "القديس يوحنا ذهبي الفم"], ["المسيح هو الحياة بطبيعته، ومن يتحد به ينال الحياة.", "القديس كيرلس الإسكندري"], ["المسيح جمعنا فيه، لكي لا نكون متفرقين، بل واحدًا في المحبة والإيمان.", "القديس كيرلس الإسكندري"], ["الكنيسة ليست مجرد اجتماع، لكنها حياة شركة ومحبة وعطاء.", "القديس يوحنا ذهبي الفم"], ["لا تنسب لنفسك الخير الذي تفعله، لأن كل ما عندك هو عطية من الله.", "القديس يوحنا ذهبي الفم"], ["الإيمان الحقيقي لا يتوقف أمام الصعوبات، بل يجعل الإنسان أكثر تمسكًا بالله.", "القديس يوحنا ذهبي الفم"], ["ليس المهم أن تكون حياتك سهلة، بل أن تكون حياتك مرضية أمام الله.", "القديس يوحنا ذهبي الفم"], ["الإنجيل ليس خبرًا بشريًا، لكنه قوة الله للخلاص.", "القديس يوحنا ذهبي الفم"], ["الله لا يطلب من الإنسان أن يخلص نفسه بنفسه، بل جاء هو إلينا ليجدد طبيعتنا.", "القديس أثناسيوس الرسولي"], ["لا يكفي أن تكون مستقيمًا في علاقتك بالله، بل يجب أن تظهر هذه الاستقامة في محبتك للآخرين.", "القديس يوحنا ذهبي الفم"], ["الصليب الذي يراه العالم ضعفًا هو في الحقيقة قوة الله وحكمته.", "القديس يوحنا ذهبي الفم"], ["المواهب المختلفة لا تجعلنا متفرقين، بل تجعلنا أعضاء يحتاج كل واحد منها إلى الآخر.", "القديس يوحنا ذهبي الفم"], ["المحبة لا تظهر في الكلام فقط، بل في احتمال الآخر واحتمال ضعفه.", "القديس يوحنا ذهبي الفم"], ["العطاء الحقيقي ليس أن تعطي من فائضك فقط، بل أن يكون قلبك كريمًا.", "القديس يوحنا ذهبي الفم"], ["التواضع يحفظ الفضيلة من أن تتحول إلى سبب للكبرياء.", "القديس يوحنا ذهبي الفم"], ["الحرية المسيحية ليست أن نفعل كل ما نريده، بل ألا نعود عبيدًا للخطية.", "القديس يوحنا ذهبي الفم"], ["لا يوجد شيء يساوي التواضع؛ فهو أساس الفضائل كلها.", "القديس يوحنا ذهبي الفم"], ["المسيح لم يتخلَّ عن مجده، لكنه أخفى مجده وأخذ صورة العبد من أجل خلاصنا.", "القديس أثناسيوس الرسولي"], ["الشكر ليس فقط وقت الراحة والفرح، بل هو موقف القلب المؤمن في كل الظروف.", "القديس يوحنا ذهبي الفم"], ["الذي يقود الآخرين يجب أن يبدأ أولًا بقيادة نفسه.", "القديس يوحنا ذهبي الفم"], ["لا تجعل صغر سنك عائقًا أمام الفضيلة، فالحياة النقية هي التي تمنح الإنسان كرامته.", "القديس يوحنا ذهبي الفم"], ["المحبة لا تتعامل مع الإنسان باعتباره مجرد عبد أو خادم، بل ترى فيه أخًا.", "القديس يوحنا ذهبي الفم"], ["الله لم يرسل لنا مجرد نبي أو ملاك، بل أرسل ابنه، لكي يرفعنا إليه.", "القديس يوحنا ذهبي الفم"], ["الإيمان يجعلنا نرى ما لا تراه العين، ونتمسك بما لم نصل إليه بعد.", "القديس يوحنا ذهبي الفم"], ["التجربة لا تكشف فقط ما نحتمله، لكنها تكشف أيضًا ما بداخلنا.", "القديس يوحنا ذهبي الفم"], ["المسيح صار إنسانًا لكي يجعل الإنسان شريكًا في الحياة الإلهية بالنعمة.", "القديس أثناسيوس الرسولي"], ["لا يمكن أن نقول إننا نعرف الله بينما نرفض أن نعيش في محبته.", "القديس كيرلس الإسكندري"], ["مجد الله هو الإنسان الحي، وحياة الإنسان هي معاينة الله.", "القديس إيرينيؤس"], ["الغلبة في سفر الرؤيا ليست غلبة العالم بقوته، بل ثبات المؤمن في المسيح وسط الضيقات.", "القديس أندراوس أسقف قيصرية"], ["لا ينبغي أن تشغلنا رموز الشر بقدر ما يشغلنا ثباتنا في عبادة الله وعدم الخضوع له.", "القديس أندراوس أسقف قيصرية"], ["المسيح جاء لكي يجدد الخليقة كلها، ويقود الإنسان إلى الحياة التي لا تزول.", "القديس أثناسيوس الرسولي"]];
@@ -162,7 +215,7 @@ function render(){
  var d=days[cur],dc=done.indexOf(cur)>-1;
  $("dt").textContent="اليوم "+nf.format(cur+1)+" من "+nf.format(D);
  $("dd").textContent=dstr(cur)+(cur==td?" · النهارده":cur>td?"":"")+(td<0&&cur==0?" · بنبدأ بكرة":"");
- $("rd").innerHTML=d.g.map(function(g){return '<div class="read"><i>📖</i><span>'+rng(g)+'</span></div>'}).join("");
+ $("rd").innerHTML=d.g.map(function(g,gi){return '<button type="button" class="read" data-gi="'+gi+'"><i>📖</i><span>'+rng(g)+'</span><em>اقرأ ‹</em></button>'}).join("");
  var b=$("mk");b.textContent=dc?"✅ خلصت قراية اليوم (اضغط للتراجع)":"خلصت قراية اليوم";b.className="btn"+(dc?" done":"");
  $("rf").textContent="«"+R[cur][0]+"»";$("rw").textContent=R[cur][1];
  $("pv").disabled=cur==0;$("nx").disabled=cur==D-1;
@@ -186,8 +239,82 @@ $("pv").onclick=function(){if(cur>0){cur--;render()}};
 $("nx").onclick=function(){if(cur<D-1){cur++;render()}};
 $("gr").onclick=function(e){var t=e.target.closest(".tile");if(t){cur=+t.dataset.i;render();window.scrollTo(0,0)}};
 $("th").onclick=function(){var r=document.documentElement,d=r.getAttribute("data-theme");var dark=d?d=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.setAttribute("data-theme",dark?"light":"dark")};
+var NT=null,NTp=null,rList=[],rIdx=0,rFs=19;
+try{rFs=Math.min(28,Math.max(15,+localStorage.getItem("yam_fs")||19))}catch(x){}
+function loadNT(){
+ if(NT)return Promise.resolve(NT);
+ if(!NTp)NTp=fetch("./nt-svd.json").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){NT=d;return d}).catch(function(e){NTp=null;throw e});
+ return NTp;
+}
+function applyFs(){$("rdr-b").style.fontSize=rFs+"px";try{localStorage.setItem("yam_fs",String(rFs))}catch(x){}}
+function renderReader(){
+ var item=rList[rIdx];if(!item)return;
+ var bName=B[item.b][0],single=B[item.b][1]==1;
+ $("rdr-t").textContent=single?bName:(bName+" "+nf.format(item.c));
+ var tabs="";
+ for(var i=0;i<rList.length;i++){
+  var it=rList[i],lbl=B[it.b][1]==1?B[it.b][0]:(rList.some(function(x){return x.b!=it.b})?(B[it.b][0]+" "+nf.format(it.c)):("أصحاح "+nf.format(it.c)));
+  tabs+='<button type="button" class="rdr-tab'+(i==rIdx?" on":"")+'" data-ri="'+i+'">'+lbl+'</button>';
+ }
+ $("rdr-tabs").innerHTML=tabs;
+ $("rdr-tabs").style.display=rList.length>1?"flex":"none";
+ var act=$("rdr-tabs").querySelector(".on");if(act)act.scrollIntoView({inline:"center",block:"nearest"});
+ var body=$("rdr-b");applyFs();
+ if(!NT){
+  body.innerHTML='<div class="rdr-msg">جاري تحميل نص الكتاب المقدس...</div>';
+  loadNT().then(renderReader).catch(function(){body.innerHTML='<div class="rdr-msg">تعذّر تحميل النص. تأكد من الاتصال بالإنترنت أول مرة ثم حاول مجددًا.<br><br><button type="button" class="rdr-ctl" id="rdr-retry">إعادة المحاولة</button></div>';var rt=$("rdr-retry");if(rt)rt.onclick=renderReader});
+  return;
+ }
+ var verses=NT[item.b][item.c-1]||[];
+ var h=verses.map(function(v,vi){return '<p class="rdr-v"><sup>'+nf.format(vi+1)+'</sup>'+v+'</p>'}).join("");
+ var isLast=rIdx==rList.length-1,dc=done.indexOf(cur)>-1;
+ h+='<div class="rdr-ft">';
+ h+='<button type="button" id="rdr-pv"'+(rIdx==0?' disabled':'')+'>الأصحاح السابق</button>';
+ if(!isLast)h+='<button type="button" class="pri" id="rdr-nx">الأصحاح التالي</button>';
+ else if(!dc)h+='<button type="button" class="ok" id="rdr-done">✅ خلصت قراية اليوم</button>';
+ else h+='<button type="button" class="pri" id="rdr-close2">إغلاق</button>';
+ h+='</div><div class="rdr-src">الكتاب المقدس — الترجمة العربية (فان دايك)</div>';
+ body.innerHTML=h;body.scrollTop=0;
+ $("rdr-pv").onclick=function(){if(rIdx>0){rIdx--;renderReader()}};
+ var nx=$("rdr-nx");if(nx)nx.onclick=function(){if(rIdx<rList.length-1){rIdx++;renderReader()}};
+ var dn=$("rdr-done");if(dn)dn.onclick=function(){closeReader();$("mk").click()};
+ var cl=$("rdr-close2");if(cl)cl.onclick=closeReader;
+}
+function openReader(gi){
+ var d=days[cur];rList=[];rIdx=0;
+ d.g.forEach(function(g,idx){
+  if(idx==gi)rIdx=rList.length;
+  for(var c=g.s;c<=g.e;c++)rList.push({b:g.b,c:c});
+ });
+ $("rdr").classList.add("open");document.body.classList.add("noscroll");
+ renderReader();
+}
+function closeReader(){$("rdr").classList.remove("open");document.body.classList.remove("noscroll")}
+$("rd").onclick=function(e){var b=e.target.closest(".read");if(b)openReader(+b.dataset.gi)};
+$("rdr-tabs").onclick=function(e){var t=e.target.closest(".rdr-tab");if(t){rIdx=+t.dataset.ri;renderReader()}};
+$("rdr-x").onclick=closeReader;
+$("rdr").onclick=function(e){if(e.target===$("rdr"))closeReader()};
+$("fs-m").onclick=function(){rFs=Math.max(15,rFs-2);applyFs()};
+$("fs-p").onclick=function(){rFs=Math.min(28,rFs+2);applyFs()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("rdr").classList.contains("open"))closeReader()});
 render();
 if("serviceWorker" in navigator&&(location.protocol=="https:"||location.hostname=="localhost")){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+(function(){
+ var isStandalone=matchMedia("(display-mode:standalone)").matches||navigator.standalone===true;
+ var dismissed=false;try{dismissed=localStorage.getItem("yam_inst_hide")==="1"}catch(x){}
+ if(isStandalone||dismissed)return;
+ var box=$("inst"),go=$("inst-go"),xBtn=$("inst-x"),tip=$("inst-tip"),deferred=null;
+ var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
+ function hide(saveHide){box.classList.remove("show");if(saveHide)try{localStorage.setItem("yam_inst_hide","1")}catch(e){}}
+ window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferred=e;box.classList.add("show")});
+ window.addEventListener("appinstalled",function(){deferred=null;hide(true)});
+ if(isIOS){box.classList.add("show")}
+ go.onclick=function(){
+  if(deferred){deferred.prompt();deferred.userChoice.then(function(r){deferred=null;if(r&&r.outcome==="accepted")hide(true)})}
+  else if(isIOS){tip.classList.toggle("show")}
+ };
+ xBtn.onclick=function(){hide(true)};
+})();
 </script>
 </body>
 </html>
