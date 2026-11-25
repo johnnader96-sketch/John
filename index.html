@@ -115,6 +115,22 @@ body.noscroll{overflow:hidden}
 .lang-btn:active{transform:scale(.96)}
 .lang-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 [dir="ltr"] .dayhead{flex-direction:row-reverse}
+.inst-m{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(12,10,32,.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.inst-m.open{display:flex}
+.inst-card{width:100%;max-width:440px;max-height:90dvh;overflow-y:auto;background:var(--card);color:var(--ink);border:1.5px solid var(--pri);border-radius:26px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.inst-mhd{display:flex;align-items:flex-start;gap:12px}
+.inst-mhd .inst-ic{font-size:32px;line-height:1}
+.inst-mhd h3{margin:0;font-size:19px;font-weight:900;line-height:1.3}
+.inst-mhd p{margin:4px 0 0;font-size:13px;color:var(--mut)}
+.inst-warn{margin-top:12px;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--gold) 18%,var(--bg));border:1px solid color-mix(in srgb,var(--gold) 55%,transparent);font-size:13px;font-weight:700}
+.inst-steps{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.inst-steps li{display:flex;align-items:flex-start;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:14px;line-height:1.6}
+.inst-num{flex:none;width:24px;height:24px;border-radius:999px;background:var(--pri);color:#fff;font-size:13px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-top:2px}
+.inst-acts{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.inst-pri{width:100%;border:0;border-radius:16px;padding:13px;font:inherit;font-weight:900;font-size:16px;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));cursor:pointer}
+.inst-pri:active{transform:scale(.98)}
+.inst-sec{width:100%;border:1px solid var(--line);border-radius:14px;padding:10px;font:inherit;font-weight:800;font-size:14px;background:var(--bg);color:var(--mut);cursor:pointer}
+.inst-pri:focus-visible,.inst-sec:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -202,6 +218,17 @@ body.noscroll{overflow:hidden}
     <div class="rdr-body" id="rdr-b"></div>
   </div>
 </div>
+<div class="inst-m" id="inst-m" role="dialog" aria-modal="true" aria-labelledby="inst-mt">
+  <div class="inst-card">
+    <div class="inst-mhd">
+      <span class="inst-ic">📲</span>
+      <div style="flex:1;min-width:0"><h3 id="inst-mt"></h3><p id="inst-ms"></p></div>
+      <button type="button" class="inst-x" id="inst-mx" aria-label="إغلاق">✕</button>
+    </div>
+    <div id="inst-mb"></div>
+    <div class="inst-acts" id="inst-ma"></div>
+  </div>
+</div>
 <script>
 var B=[["متى",28],["مرقس",16],["لوقا",24],["يوحنا",21],["أعمال الرسل",28],["رومية",16],["١ كورنثوس",16],["٢ كورنثوس",13],["غلاطية",6],["أفسس",6],["فيلبي",4],["كولوسي",4],["١ تسالونيكي",5],["٢ تسالونيكي",3],["١ تيموثاوس",6],["٢ تيموثاوس",4],["تيطس",3],["فليمون",1],["العبرانيين",13],["يعقوب",5],["١ بطرس",5],["٢ بطرس",3],["١ يوحنا",5],["٢ يوحنا",1],["٣ يوحنا",1],["يهوذا",1],["رؤيا يوحنا",22]];
 var B_EN=["Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
@@ -213,6 +240,13 @@ var T={
   heroT:"الحب إتولد 👶❤️",heroP:"العهد الجديد كله في صوم الميلاد. كل يوم خطوة، والنجمة بتنوّر.",
   instB:"ثبّت التطبيق على جهازك",instS:"يفتح بسرعة ويشتغل أوفلاين بدون إنترنت",instGo:"تثبيت",instClose:"إغلاق",
   instTip:'لتثبيت التطبيق على الآيفون: اضغط على زر المشاركة <b>(⬆️)</b> في المتصفح ثم اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.',
+  instNow:"📲 تثبيت التطبيق الآن",instLater:"متابعة في المتصفح",instCopy:"📋 نسخ رابط الموقع",instCopied:"✅ تم نسخ الرابط!",
+  instInAppWarn:"⚠️ أنت فاتح الموقع من داخل تطبيق (مثل واتساب أو فيسبوك)، والتثبيت مش بيشتغل من هنا مباشرة.",
+  instInAppIOS:["اضغط على زر القائمة <b>(•••)</b> أو <b>(🧭)</b> بالأسفل أو الأعلى واختر <b>«فتح في Safari»</b>.","في متصفح Safari، اضغط على زر المشاركة <b>(⬆️)</b>.","اختر <b>«إضافة إلى الشاشة الرئيسية»</b> ثم اضغط <b>«إضافة»</b>."],
+  instInAppAnd:["اضغط على القائمة <b>(⋮)</b> في الأعلى واختر <b>«فتح في Chrome»</b> (أو انسخ الرابط وافتحه في Chrome).","في Chrome، اضغط على القائمة <b>(⋮)</b> في الأعلى.","اختر <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b> ثم <b>«تثبيت»</b>."],
+  instIOS:["اضغط على زر المشاركة <b>(⬆️)</b> في أسفل متصفح Safari.","انزل لأسفل واضغط على <b>«إضافة إلى الشاشة الرئيسية»</b> (Add to Home Screen).","اضغط <b>«إضافة»</b> (Add) في الأعلى، وهيظهر التطبيق على شاشتك الرئيسية."],
+  instAnd:["اضغط على القائمة <b>(⋮)</b> في أعلى المتصفح.","اختر <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>.","اضغط <b>«تثبيت»</b> (Install) وهيظهر التطبيق على جهازك."],
+  instDesk:["اضغط على أيقونة التثبيت <b>(⊕)</b> في شريط العنوان بالأعلى، أو افتح قائمة المتصفح <b>(⋮)</b>.","اختر <b>«تثبيت التطبيق»</b> (Install app) ثم أكّد التثبيت."],
   stPct:"من العهد الجديد",stDn:"يوم خلصته",stSt:"أيام ورا بعض",
   fin:"🎉 خلصت العهد الجديد كله! المجد لله. عيد ميلاد مجيد ⭐",
   nxAria:"اليوم التالي",pvAria:"اليوم السابق",
@@ -238,6 +272,13 @@ var T={
   heroT:"Love Is Born 👶❤️",heroP:"The entire New Testament during the Nativity Fast. One step each day, and the star shines brighter.",
   instB:"Install the app on your device",instS:"Opens fast and works offline without internet",instGo:"Install",instClose:"Close",
   instTip:'To install on iPhone: tap the Share button <b>(⬆️)</b> in Safari, then choose <b>“Add to Home Screen”</b>.',
+  instNow:"📲 Install App Now",instLater:"Continue in browser",instCopy:"📋 Copy Site Link",instCopied:"✅ Link Copied!",
+  instInAppWarn:"⚠️ You opened this site inside an in-app browser (like WhatsApp or Facebook), where direct installation is blocked.",
+  instInAppIOS:["Tap the menu <b>(•••)</b> or Safari icon <b>(🧭)</b> and choose <b>“Open in Safari”</b>.","In Safari, tap the Share button <b>(⬆️)</b> at the bottom.","Scroll down, tap <b>“Add to Home Screen”</b>, then tap <b>“Add”</b>."],
+  instInAppAnd:["Tap the menu <b>(⋮)</b> at the top and choose <b>“Open in Chrome”</b> (or copy the link and open it in Chrome).","In Chrome, tap the menu <b>(⋮)</b> at the top.","Choose <b>“Install app”</b> or <b>“Add to Home screen”</b>, then tap <b>“Install”</b>."],
+  instIOS:["Tap the Share button <b>(⬆️)</b> at the bottom of Safari.","Scroll down and tap <b>“Add to Home Screen”</b>.","Tap <b>“Add”</b> in the top corner to place the app on your Home Screen."],
+  instAnd:["Tap the browser menu <b>(⋮)</b> at the top corner.","Choose <b>“Install app”</b> or <b>“Add to Home screen”</b>.","Tap <b>“Install”</b> to add the app to your phone."],
+  instDesk:["Click the Install icon <b>(⊕)</b> in the address bar, or open the browser menu <b>(⋮)</b>.","Select <b>“Install app”</b> and confirm."],
   stPct:"of New Testament",stDn:"days completed",stSt:"day streak",
   fin:"🎉 You finished the entire New Testament! Glory to God. Merry Christmas ⭐",
   nxAria:"Next day",pvAria:"Previous day",
@@ -335,7 +376,7 @@ $("th").onclick=function(){var next=isDark()?"light":"dark";document.documentEle
 $("lang-btn").onclick=function(){
  lang=lang=="ar"?"en":"ar";
  try{localStorage.setItem("yam_lang",lang)}catch(x){}
- applyLang();render();
+ applyLang();render();renderInstModal();
  if($("rdr").classList.contains("open"))renderReader();
 };
 var NT={ar:null,en:null},NTp={ar:null,en:null},rList=[],rIdx=0,rFs=19;
@@ -396,25 +437,67 @@ $("rdr-x").onclick=closeReader;
 $("rdr").onclick=function(e){if(e.target===$("rdr"))closeReader()};
 $("fs-m").onclick=function(){rFs=Math.max(15,rFs-2);applyFs()};
 $("fs-p").onclick=function(){rFs=Math.min(28,rFs+2);applyFs()};
-document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("rdr").classList.contains("open"))closeReader()});
-applyLang();render();
-if("serviceWorker" in navigator&&(location.protocol=="https:"||location.hostname=="localhost")){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){if($("rdr").classList.contains("open"))closeReader();else if($("inst-m").classList.contains("open"))closeInstModal()}});
+var renderInstModal=function(){},closeInstModal=function(){};
 (function(){
  var isStandalone=matchMedia("(display-mode:standalone)").matches||navigator.standalone===true;
- var dismissed=false;try{dismissed=localStorage.getItem("yam_inst_hide")==="1"}catch(x){}
- if(isStandalone||dismissed)return;
- var box=$("inst"),go=$("inst-go"),xBtn=$("inst-x"),tip=$("inst-tip"),deferred=null;
- var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
- function hide(saveHide){box.classList.remove("show");if(saveHide)try{localStorage.setItem("yam_inst_hide","1")}catch(e){}}
- window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferred=e;box.classList.add("show")});
- window.addEventListener("appinstalled",function(){deferred=null;hide(true)});
- if(isIOS){box.classList.add("show")}
- go.onclick=function(){
-  if(deferred){deferred.prompt();deferred.userChoice.then(function(r){deferred=null;if(r&&r.outcome==="accepted")hide(true)})}
-  else if(isIOS){tip.classList.toggle("show")}
+ if(isStandalone)return;
+ var box=$("inst"),go=$("inst-go"),xBtn=$("inst-x"),modal=$("inst-m"),mx=$("inst-mx"),mt=$("inst-mt"),ms=$("inst-ms"),mb=$("inst-mb"),ma=$("inst-ma"),deferred=null;
+ var ua=navigator.userAgent||"";
+ var isIOS=(/iPad|iPhone|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))&&!window.MSStream;
+ var isAndroid=/Android/i.test(ua);
+ var isInApp=/FBAN|FBAV|Instagram|WhatsApp|Messenger|Line\/|TikTok|Snapchat|MicroMessenger|Telegram|; wv\)/i.test(ua);
+ function openModal(){renderInstModal();modal.classList.add("open");document.body.classList.add("noscroll")}
+ closeInstModal=function(){modal.classList.remove("open");if(!$("rdr").classList.contains("open"))document.body.classList.remove("noscroll")};
+ function triggerNative(){
+  if(!deferred)return;
+  deferred.prompt();
+  deferred.userChoice.then(function(r){deferred=null;if(r&&r.outcome==="accepted"){closeInstModal();box.classList.remove("show")}else renderInstModal()});
+ }
+ renderInstModal=function(){
+  var t=T[lang];
+  mt.textContent=t.instB;ms.textContent=t.instS;mx.setAttribute("aria-label",t.instClose);
+  var html="",steps=[];
+  if(isInApp){
+   html+='<div class="inst-warn">'+t.instInAppWarn+'</div>';
+   steps=isIOS?t.instInAppIOS:t.instInAppAnd;
+  }else if(isIOS){
+   steps=t.instIOS;
+  }else if(isAndroid){
+   steps=t.instAnd;
+  }else{
+   steps=t.instDesk;
+  }
+  html+='<ol class="inst-steps">'+steps.map(function(s,idx){return '<li><span class="inst-num">'+nf.format(idx+1)+'</span><span>'+s+'</span></li>'}).join("")+'</ol>';
+  mb.innerHTML=html;
+  var acts="";
+  if(deferred)acts+='<button type="button" class="inst-pri" id="inst-now">'+t.instNow+'</button>';
+  else if(isInApp)acts+='<button type="button" class="inst-pri" id="inst-copy">'+t.instCopy+'</button>';
+  acts+='<button type="button" class="inst-sec" id="inst-later">'+t.instLater+'</button>';
+  ma.innerHTML=acts;
+  var nowBtn=$("inst-now");if(nowBtn)nowBtn.onclick=triggerNative;
+  var cpBtn=$("inst-copy");
+  if(cpBtn)cpBtn.onclick=function(){
+   var url=location.href;
+   var done=function(){cpBtn.textContent=T[lang].instCopied;setTimeout(function(){if($("inst-copy"))$("inst-copy").textContent=T[lang].instCopy},2500)};
+   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(done).catch(done);
+   else{var i=document.createElement("input");i.value=url;document.body.appendChild(i);i.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(i);done()}
+  };
+  var laterBtn=$("inst-later");if(laterBtn)laterBtn.onclick=closeInstModal;
  };
- xBtn.onclick=function(){hide(true)};
+ window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferred=e;box.classList.add("show");renderInstModal()});
+ window.addEventListener("appinstalled",function(){deferred=null;closeInstModal();box.classList.remove("show")});
+ box.classList.add("show");
+ go.onclick=function(){if(deferred)triggerNative();else openModal()};
+ xBtn.onclick=function(){box.classList.remove("show")};
+ mx.onclick=closeInstModal;
+ modal.onclick=function(e){if(e.target===modal)closeInstModal()};
+ openModal();
 })();
+applyLang();render();renderInstModal();
+if("serviceWorker" in navigator&&(location.protocol=="https:"||location.hostname=="localhost")){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 </script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
