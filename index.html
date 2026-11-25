@@ -109,7 +109,7 @@ body.noscroll{overflow:hidden}
 .inst-x{flex:none;border:0;background:transparent;color:var(--mut);font:inherit;font-size:16px;padding:4px 6px;cursor:pointer}
 .inst-tip{display:none;font-size:13px;background:var(--bg);border-radius:12px;padding:8px 10px;color:var(--ink)}
 .inst-tip.show{display:block}
-.topbar{display:flex;justify-content:flex-end;margin-bottom:10px}
+.topbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px}
 .lang-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:border-color .15s,transform .15s}
 .lang-btn:hover{border-color:var(--pri)}
 .lang-btn:active{transform:scale(.96)}
@@ -136,6 +136,7 @@ body.noscroll{overflow:hidden}
 <g class="sn"><circle cx="0" cy="-20" r="1.2" style="animation-duration:9s;animation-delay:-0s"/><circle cx="53" cy="-20" r="2.0" style="animation-duration:11s;animation-delay:-2s"/><circle cx="106" cy="-20" r="2.8" style="animation-duration:13s;animation-delay:-4s"/><circle cx="159" cy="-20" r="1.2" style="animation-duration:15s;animation-delay:-6s"/><circle cx="212" cy="-20" r="2.0" style="animation-duration:17s;animation-delay:-8s"/><circle cx="265" cy="-20" r="2.8" style="animation-duration:19s;animation-delay:-10s"/><circle cx="318" cy="-20" r="1.2" style="animation-duration:9s;animation-delay:-12s"/><circle cx="371" cy="-20" r="2.0" style="animation-duration:11s;animation-delay:-14s"/><circle cx="24" cy="-20" r="2.8" style="animation-duration:13s;animation-delay:-16s"/><circle cx="77" cy="-20" r="1.2" style="animation-duration:15s;animation-delay:-18s"/><circle cx="130" cy="-20" r="2.0" style="animation-duration:17s;animation-delay:-20s"/><circle cx="183" cy="-20" r="2.8" style="animation-duration:19s;animation-delay:-22s"/><circle cx="236" cy="-20" r="1.2" style="animation-duration:9s;animation-delay:-24s"/><circle cx="289" cy="-20" r="2.0" style="animation-duration:11s;animation-delay:-26s"/><circle cx="342" cy="-20" r="2.8" style="animation-duration:13s;animation-delay:-28s"/><circle cx="395" cy="-20" r="1.2" style="animation-duration:15s;animation-delay:-30s"/><circle cx="48" cy="-20" r="2.0" style="animation-duration:17s;animation-delay:-32s"/><circle cx="101" cy="-20" r="2.8" style="animation-duration:19s;animation-delay:-34s"/></g></svg></div>
 <div class="w">
   <div class="topbar">
+    <button type="button" class="lang-btn" id="th" aria-label="تغيير الوضع: فاتح / داكن">🌙 داكن</button>
     <button type="button" class="lang-btn" id="lang-btn" aria-label="Switch to English">🌐 English</button>
   </div>
   <div class="hero">
@@ -187,7 +188,7 @@ body.noscroll{overflow:hidden}
     <h4 id="bk-h">أسفار العهد الجديد</h4>
     <div class="bk" id="bk"></div>
   </div>
-  <div class="foot"><span id="ft-v">«أَيُّهَا السَّيِّدُ، قَدْ صَارَ كَمَا أَمَرْتَ، وَيُوجَدُ أَيْضاً مَكَانٌ» (لو 14: 22)</span><br><button class="tg" id="th">تغيير الوضع: فاتح / داكن</button></div>
+  <div class="foot"><span id="ft-v">«أَيُّهَا السَّيِّدُ، قَدْ صَارَ كَمَا أَمَرْتَ، وَيُوجَدُ أَيْضاً مَكَانٌ» (لو 14: 22)</span></div>
 </div>
 <div class="rdr" id="rdr" role="dialog" aria-modal="true" aria-labelledby="rdr-t">
   <div class="rdr-box">
@@ -224,7 +225,7 @@ var T={
   grH:"رحلة الـ 43 يوم",tileAria:function(n){return "يوم "+nf.format(n)},
   bkH:"أسفار العهد الجديد",
   ftV:"«أَيُّهَا السَّيِّدُ، قَدْ صَارَ كَمَا أَمَرْتَ، وَيُوجَدُ أَيْضاً مَكَانٌ» (لو 14: 22)",
-  th:"تغيير الوضع: فاتح / داكن",
+  thDark:"🌙 داكن",thLight:"☀️ فاتح",thAria:"تغيير الوضع: فاتح / داكن",
   fsM:"أ-",fsP:"أ+",fsMAria:"تصغير الخط",fsPAria:"تكبير الخط",closeAria:"إغلاق",
   chLbl:function(c){return "أصحاح "+nf.format(c)},
   loading:"جاري تحميل نص الكتاب المقدس...",
@@ -249,7 +250,7 @@ var T={
   grH:"43-Day Journey",tileAria:function(n){return "Day "+nf.format(n)},
   bkH:"New Testament Books",
   ftV:"“Lord, it is done as you commanded, and there is still room.” (Luke 14:22)",
-  th:"Toggle Theme: Light / Dark",
+  thDark:"🌙 Dark",thLight:"☀️ Light",thAria:"Toggle Theme: Light / Dark",
   fsM:"A-",fsP:"A+",fsMAria:"Decrease font size",fsPAria:"Increase font size",closeAria:"Close",
   chLbl:function(c){return "Ch. "+nf.format(c)},
   loading:"Loading Bible text...",
@@ -260,6 +261,7 @@ var T={
 };
 var lang="ar";
 try{if(localStorage.getItem("yam_lang")==="en")lang="en"}catch(x){}
+try{var savedTh=localStorage.getItem("yam_theme");if(savedTh==="dark"||savedTh==="light")document.documentElement.setAttribute("data-theme",savedTh)}catch(x){}
 var N=260,D=43,S=new Date(2026,10,25);
 var C=[];B.forEach(function(b,i){for(var c=1;c<=b[1];c++)C.push([i,c])});
 var days=[];
@@ -273,6 +275,8 @@ function save(){try{localStorage.setItem("yam_done",JSON.stringify(done));localS
 var $=function(i){return document.getElementById(i)};
 var nf=new Intl.NumberFormat(T[lang].locale);
 function bkName(i){return lang=="en"?B_EN[i]:B[i][0]}
+function isDark(){var d=document.documentElement.getAttribute("data-theme");return d?d=="dark":matchMedia("(prefers-color-scheme:dark)").matches}
+function syncThemeBtn(){var t=T[lang];$("th").textContent=isDark()?t.thLight:t.thDark;$("th").setAttribute("aria-label",t.thAria)}
 function applyLang(){
  var t=T[lang];
  nf=new Intl.NumberFormat(t.locale);
@@ -290,7 +294,7 @@ function applyLang(){
  $("nx").setAttribute("aria-label",t.nxAria);$("pv").setAttribute("aria-label",t.pvAria);
  $("sp-h").textContent=t.spH;$("sp-sm").textContent=t.spSm;
  $("gr-h").textContent=t.grH;$("bk-h").textContent=t.bkH;
- $("ft-v").textContent=t.ftV;$("th").textContent=t.th;
+ $("ft-v").textContent=t.ftV;syncThemeBtn();
  $("fs-m").textContent=t.fsM;$("fs-p").textContent=t.fsP;
  $("fs-m").setAttribute("aria-label",t.fsMAria);$("fs-p").setAttribute("aria-label",t.fsPAria);
  $("rdr-x").setAttribute("aria-label",t.closeAria);
@@ -327,7 +331,7 @@ $("mk").onclick=function(){var i=done.indexOf(cur);if(i>-1)done.splice(i,1);else
 $("pv").onclick=function(){if(cur>0){cur--;render()}};
 $("nx").onclick=function(){if(cur<D-1){cur++;render()}};
 $("gr").onclick=function(e){var t=e.target.closest(".tile");if(t){cur=+t.dataset.i;render();window.scrollTo(0,0)}};
-$("th").onclick=function(){var r=document.documentElement,d=r.getAttribute("data-theme");var dark=d?d=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.setAttribute("data-theme",dark?"light":"dark")};
+$("th").onclick=function(){var next=isDark()?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("yam_theme",next)}catch(x){}syncThemeBtn()};
 $("lang-btn").onclick=function(){
  lang=lang=="ar"?"en":"ar";
  try{localStorage.setItem("yam_lang",lang)}catch(x){}
