@@ -32,7 +32,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple
 .dayhead h2{margin:0;font-size:20px;font-weight:800}
 .nav{border:0;background:var(--bg);color:var(--ink);width:40px;height:40px;border-radius:14px;font:inherit;font-size:18px;cursor:pointer}
 .date{color:var(--mut);font-size:13px}
-.read{width:100%;display:flex;align-items:center;gap:10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:10px;font:inherit;font-weight:800;font-size:18px;cursor:pointer;text-align:right;transition:transform .15s,border-color .15s}.read:hover{border-color:var(--pri)}.read:active{transform:scale(.98)}.read:focus-visible{outline:3px solid var(--gold);outline-offset:2px}.read em{margin-right:auto;font-style:normal;font-size:13px;font-weight:700;color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,transparent);padding:3px 10px;border-radius:999px}
+.read{width:100%;display:flex;align-items:center;gap:10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:10px;font:inherit;font-weight:800;font-size:18px;cursor:pointer;text-align:start;transition:transform .15s,border-color .15s}.read:hover{border-color:var(--pri)}.read:active{transform:scale(.98)}.read:focus-visible{outline:3px solid var(--gold);outline-offset:2px}.read em{margin-inline-start:auto;font-style:normal;font-size:13px;font-weight:700;color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,transparent);padding:3px 10px;border-radius:999px}
 .read i{font-style:normal;font-size:20px}
 .btn{width:100%;margin-top:14px;border:0;border-radius:18px;padding:14px;font:inherit;font-weight:900;font-size:18px;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));cursor:pointer;transition:transform .15s}
 .btn:active{transform:scale(.97)}
@@ -49,7 +49,7 @@ textarea{width:100%;margin-top:10px;border:1px dashed var(--line);border-radius:
 .tile.sel{outline:3px solid var(--pri);outline-offset:1px}
 .bk{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .chip{position:relative;overflow:hidden;border-radius:999px;background:var(--bg);padding:2px 12px;font-size:13px;font-weight:600}
-.chip em{position:absolute;inset:0 auto 0 0;background:var(--ok);opacity:.35}
+.chip em{position:absolute;inset-block:0;inset-inline-start:0;background:var(--ok);opacity:.35}
 .chip span{position:relative}
 .chip.full{background:var(--ok);color:#fff}
 .chip.full em{display:none}
@@ -89,7 +89,7 @@ html{background:var(--bg)}
 .rdr-tab.on{background:var(--pri);color:#fff;border-color:var(--pri)}
 .rdr-body{flex:1;overflow-y:auto;padding:18px 20px calc(24px + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch}
 .rdr-v{margin:0 0 12px;line-height:2.1}
-.rdr-v sup{color:var(--pri);font-weight:900;font-size:.72em;margin-left:5px}
+.rdr-v sup{color:var(--pri);font-weight:900;font-size:.72em;margin-inline-end:5px}
 .rdr-msg{text-align:center;color:var(--mut);padding:40px 12px;font-weight:700}
 .rdr-ft{display:flex;gap:8px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
 .rdr-ft button{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:11px 12px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
@@ -109,6 +109,12 @@ body.noscroll{overflow:hidden}
 .inst-x{flex:none;border:0;background:transparent;color:var(--mut);font:inherit;font-size:16px;padding:4px 6px;cursor:pointer}
 .inst-tip{display:none;font-size:13px;background:var(--bg);border-radius:12px;padding:8px 10px;color:var(--ink)}
 .inst-tip.show{display:block}
+.topbar{display:flex;justify-content:flex-end;margin-bottom:10px}
+.lang-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:border-color .15s,transform .15s}
+.lang-btn:hover{border-color:var(--pri)}
+.lang-btn:active{transform:scale(.96)}
+.lang-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+[dir="ltr"] .dayhead{flex-direction:row-reverse}
 </style>
 </head>
 <body>
@@ -129,26 +135,29 @@ body.noscroll{overflow:hidden}
 <circle cx="24" cy="-20" r="5" fill="#E8D8FF"/><path d="M16 0 Q24 -16 32 0Z" fill="#13B98A"/></g>
 <g class="sn"><circle cx="0" cy="-20" r="1.2" style="animation-duration:9s;animation-delay:-0s"/><circle cx="53" cy="-20" r="2.0" style="animation-duration:11s;animation-delay:-2s"/><circle cx="106" cy="-20" r="2.8" style="animation-duration:13s;animation-delay:-4s"/><circle cx="159" cy="-20" r="1.2" style="animation-duration:15s;animation-delay:-6s"/><circle cx="212" cy="-20" r="2.0" style="animation-duration:17s;animation-delay:-8s"/><circle cx="265" cy="-20" r="2.8" style="animation-duration:19s;animation-delay:-10s"/><circle cx="318" cy="-20" r="1.2" style="animation-duration:9s;animation-delay:-12s"/><circle cx="371" cy="-20" r="2.0" style="animation-duration:11s;animation-delay:-14s"/><circle cx="24" cy="-20" r="2.8" style="animation-duration:13s;animation-delay:-16s"/><circle cx="77" cy="-20" r="1.2" style="animation-duration:15s;animation-delay:-18s"/><circle cx="130" cy="-20" r="2.0" style="animation-duration:17s;animation-delay:-20s"/><circle cx="183" cy="-20" r="2.8" style="animation-duration:19s;animation-delay:-22s"/><circle cx="236" cy="-20" r="1.2" style="animation-duration:9s;animation-delay:-24s"/><circle cx="289" cy="-20" r="2.0" style="animation-duration:11s;animation-delay:-26s"/><circle cx="342" cy="-20" r="2.8" style="animation-duration:13s;animation-delay:-28s"/><circle cx="395" cy="-20" r="1.2" style="animation-duration:15s;animation-delay:-30s"/><circle cx="48" cy="-20" r="2.0" style="animation-duration:17s;animation-delay:-32s"/><circle cx="101" cy="-20" r="2.8" style="animation-duration:19s;animation-delay:-34s"/></g></svg></div>
 <div class="w">
+  <div class="topbar">
+    <button type="button" class="lang-btn" id="lang-btn" aria-label="Switch to English">🌐 English</button>
+  </div>
   <div class="hero">
     <svg class="star" viewBox="0 0 100 100" aria-hidden="true">
       <defs><linearGradient id="g" x1="0" y1="1" x2="0" y2="0"><stop id="s1" offset="0" stop-color="#FFB800"/><stop id="s2" offset="0" stop-color="rgba(255,255,255,.22)"/></linearGradient></defs>
       <polygon points="50,6 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38" fill="url(#g)" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
     </svg>
-    <div><h1>الحب إتولد 👶❤️</h1><p>العهد الجديد كله في صوم الميلاد. كل يوم خطوة، والنجمة بتنوّر.</p></div>
+    <div><h1 id="h-t">الحب إتولد 👶❤️</h1><p id="h-p">العهد الجديد كله في صوم الميلاد. كل يوم خطوة، والنجمة بتنوّر.</p></div>
   </div>
   <div class="inst" id="inst">
     <div class="inst-top">
       <span class="inst-ic">📲</span>
-      <div class="inst-txt"><b>ثبّت التطبيق على جهازك</b><span>يفتح بسرعة ويشتغل أوفلاين بدون إنترنت</span></div>
+      <div class="inst-txt"><b id="inst-b">ثبّت التطبيق على جهازك</b><span id="inst-s">يفتح بسرعة ويشتغل أوفلاين بدون إنترنت</span></div>
       <button type="button" class="inst-go" id="inst-go">تثبيت</button>
       <button type="button" class="inst-x" id="inst-x" aria-label="إغلاق">✕</button>
     </div>
     <div class="inst-tip" id="inst-tip">لتثبيت التطبيق على الآيفون: اضغط على زر المشاركة <b>(⬆️)</b> في المتصفح ثم اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.</div>
   </div>
   <div class="stats">
-    <div class="stat"><b id="pct">0%</b><span>من العهد الجديد</span></div>
-    <div class="stat"><b id="dn">0</b><span>يوم خلصته</span></div>
-    <div class="stat"><b id="st">0</b><span>أيام ورا بعض</span></div>
+    <div class="stat"><b id="pct">0%</b><span id="st-pct">من العهد الجديد</span></div>
+    <div class="stat"><b id="dn">0</b><span id="st-dn">يوم خلصته</span></div>
+    <div class="stat"><b id="st">0</b><span id="st-st">أيام ورا بعض</span></div>
   </div>
   <div class="fin" id="fin">🎉 خلصت العهد الجديد كله! المجد لله. عيد ميلاد مجيد ⭐</div>
 
@@ -163,22 +172,22 @@ body.noscroll{overflow:hidden}
   </div>
 
   <div class="card sp">
-    <h3>من أقوال الآباء</h3>
+    <h3 id="sp-h">من أقوال الآباء</h3>
     <p id="rf" class="q"></p>
     <div class="who" id="rw"></div>
-    <small>تأمل مصاحب لقراءة اليوم. الصياغات تأملية وبعضها تلخيص لمعنى من تعليم الآباء، وليست اقتباسات حرفية موثقة.</small>
+    <small id="sp-sm">تأمل مصاحب لقراءة اليوم. الصياغات تأملية وبعضها تلخيص لمعنى من تعليم الآباء، وليست اقتباسات حرفية موثقة.</small>
   </div>
 
   <div class="card">
-    <h4>رحلة الـ 43 يوم</h4>
+    <h4 id="gr-h">رحلة الـ 43 يوم</h4>
     <div class="grid" id="gr"></div>
   </div>
 
   <div class="card">
-    <h4>أسفار العهد الجديد</h4>
+    <h4 id="bk-h">أسفار العهد الجديد</h4>
     <div class="bk" id="bk"></div>
   </div>
-  <div class="foot">«أَيُّهَا السَّيِّدُ، قَدْ صَارَ كَمَا أَمَرْتَ، وَيُوجَدُ أَيْضاً مَكَانٌ» (لو 14: 22)<br><button class="tg" id="th">تغيير الوضع: فاتح / داكن</button></div>
+  <div class="foot"><span id="ft-v">«أَيُّهَا السَّيِّدُ، قَدْ صَارَ كَمَا أَمَرْتَ، وَيُوجَدُ أَيْضاً مَكَانٌ» (لو 14: 22)</span><br><button class="tg" id="th">تغيير الوضع: فاتح / داكن</button></div>
 </div>
 <div class="rdr" id="rdr" role="dialog" aria-modal="true" aria-labelledby="rdr-t">
   <div class="rdr-box">
@@ -194,7 +203,63 @@ body.noscroll{overflow:hidden}
 </div>
 <script>
 var B=[["متى",28],["مرقس",16],["لوقا",24],["يوحنا",21],["أعمال الرسل",28],["رومية",16],["١ كورنثوس",16],["٢ كورنثوس",13],["غلاطية",6],["أفسس",6],["فيلبي",4],["كولوسي",4],["١ تسالونيكي",5],["٢ تسالونيكي",3],["١ تيموثاوس",6],["٢ تيموثاوس",4],["تيطس",3],["فليمون",1],["العبرانيين",13],["يعقوب",5],["١ بطرس",5],["٢ بطرس",3],["١ يوحنا",5],["٢ يوحنا",1],["٣ يوحنا",1],["يهوذا",1],["رؤيا يوحنا",22]];
+var B_EN=["Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
 var R=[["الأفضل أن تكون حياتنا نقية لدرجة أن تكون نعمة الروح القدس هي الكتاب المكتوب في قلوبنا.", "القديس يوحنا ذهبي الفم"], ["لا يكفي أن نسمع وصايا المسيح، بل يجب أن تتحول إلى حياة نعيشها.", "القديس يوحنا ذهبي الفم"], ["التواضع هو أم كل الفضائل وأساسها وجذرها.", "القديس يوحنا ذهبي الفم"], ["اتباع المسيح ليس مجرد كلام، لكنه أن نقلده في أفعالنا.", "القديس يوحنا ذهبي الفم"], ["المسيح لم يأتِ ليطلب منك أن تكون بلا خطية قبل أن تأتي إليه، بل جاء ليشفيك ويحررك.", "القديس يوحنا ذهبي الفم"], ["صار ابن الله إنسانًا لكي نصير نحن أبناء الله بالنعمة.", "القديس أثناسيوس الرسولي"], ["الاتحاد بالمسيح ليس مجرد معرفة عنه، بل شركة حقيقية معه تمنحنا الحياة.", "القديس كيرلس الكبير"], ["المسيح اقترب من طبيعتنا البشرية، لا ليبقى مثلنا في ضعفها، بل ليرفعها إلى الحياة الجديدة.", "القديس كيرلس الإسكندري"], ["التواضع الحقيقي يجعل الإنسان فقيرًا من الكبرياء، غنيًا بمحبة الله.", "القديس كيرلس الإسكندري"], ["لا يوجد شيء يشبه الله قدر الرحمة؛ لذلك لنقتدِ به في رحمته.", "القديس يوحنا ذهبي الفم"], ["حين نسامح الآخرين، لا نكون قد أحسنا إليهم فقط، بل نكون قد أنقذنا نفوسنا من مرارة الغضب.", "القديس يوحنا ذهبي الفم"], ["المسيح أخذ جسدًا قابلًا للموت لكي يقدم هذا الجسد للموت نيابة عنا، ويمنحنا عدم الموت.", "القديس أثناسيوس الرسولي"], ["لا شيء يقدر أن يفصلنا عن محبة الله إلا أن نختار نحن الابتعاد عنه.", "القديس يوحنا ذهبي الفم"], ["المسيح هو الحياة بطبيعته، ومن يتحد به ينال الحياة.", "القديس كيرلس الإسكندري"], ["المسيح جمعنا فيه، لكي لا نكون متفرقين، بل واحدًا في المحبة والإيمان.", "القديس كيرلس الإسكندري"], ["الكنيسة ليست مجرد اجتماع، لكنها حياة شركة ومحبة وعطاء.", "القديس يوحنا ذهبي الفم"], ["لا تنسب لنفسك الخير الذي تفعله، لأن كل ما عندك هو عطية من الله.", "القديس يوحنا ذهبي الفم"], ["الإيمان الحقيقي لا يتوقف أمام الصعوبات، بل يجعل الإنسان أكثر تمسكًا بالله.", "القديس يوحنا ذهبي الفم"], ["ليس المهم أن تكون حياتك سهلة، بل أن تكون حياتك مرضية أمام الله.", "القديس يوحنا ذهبي الفم"], ["الإنجيل ليس خبرًا بشريًا، لكنه قوة الله للخلاص.", "القديس يوحنا ذهبي الفم"], ["الله لا يطلب من الإنسان أن يخلص نفسه بنفسه، بل جاء هو إلينا ليجدد طبيعتنا.", "القديس أثناسيوس الرسولي"], ["لا يكفي أن تكون مستقيمًا في علاقتك بالله، بل يجب أن تظهر هذه الاستقامة في محبتك للآخرين.", "القديس يوحنا ذهبي الفم"], ["الصليب الذي يراه العالم ضعفًا هو في الحقيقة قوة الله وحكمته.", "القديس يوحنا ذهبي الفم"], ["المواهب المختلفة لا تجعلنا متفرقين، بل تجعلنا أعضاء يحتاج كل واحد منها إلى الآخر.", "القديس يوحنا ذهبي الفم"], ["المحبة لا تظهر في الكلام فقط، بل في احتمال الآخر واحتمال ضعفه.", "القديس يوحنا ذهبي الفم"], ["العطاء الحقيقي ليس أن تعطي من فائضك فقط، بل أن يكون قلبك كريمًا.", "القديس يوحنا ذهبي الفم"], ["التواضع يحفظ الفضيلة من أن تتحول إلى سبب للكبرياء.", "القديس يوحنا ذهبي الفم"], ["الحرية المسيحية ليست أن نفعل كل ما نريده، بل ألا نعود عبيدًا للخطية.", "القديس يوحنا ذهبي الفم"], ["لا يوجد شيء يساوي التواضع؛ فهو أساس الفضائل كلها.", "القديس يوحنا ذهبي الفم"], ["المسيح لم يتخلَّ عن مجده، لكنه أخفى مجده وأخذ صورة العبد من أجل خلاصنا.", "القديس أثناسيوس الرسولي"], ["الشكر ليس فقط وقت الراحة والفرح، بل هو موقف القلب المؤمن في كل الظروف.", "القديس يوحنا ذهبي الفم"], ["الذي يقود الآخرين يجب أن يبدأ أولًا بقيادة نفسه.", "القديس يوحنا ذهبي الفم"], ["لا تجعل صغر سنك عائقًا أمام الفضيلة، فالحياة النقية هي التي تمنح الإنسان كرامته.", "القديس يوحنا ذهبي الفم"], ["المحبة لا تتعامل مع الإنسان باعتباره مجرد عبد أو خادم، بل ترى فيه أخًا.", "القديس يوحنا ذهبي الفم"], ["الله لم يرسل لنا مجرد نبي أو ملاك، بل أرسل ابنه، لكي يرفعنا إليه.", "القديس يوحنا ذهبي الفم"], ["الإيمان يجعلنا نرى ما لا تراه العين، ونتمسك بما لم نصل إليه بعد.", "القديس يوحنا ذهبي الفم"], ["التجربة لا تكشف فقط ما نحتمله، لكنها تكشف أيضًا ما بداخلنا.", "القديس يوحنا ذهبي الفم"], ["المسيح صار إنسانًا لكي يجعل الإنسان شريكًا في الحياة الإلهية بالنعمة.", "القديس أثناسيوس الرسولي"], ["لا يمكن أن نقول إننا نعرف الله بينما نرفض أن نعيش في محبته.", "القديس كيرلس الإسكندري"], ["مجد الله هو الإنسان الحي، وحياة الإنسان هي معاينة الله.", "القديس إيرينيؤس"], ["الغلبة في سفر الرؤيا ليست غلبة العالم بقوته، بل ثبات المؤمن في المسيح وسط الضيقات.", "القديس أندراوس أسقف قيصرية"], ["لا ينبغي أن تشغلنا رموز الشر بقدر ما يشغلنا ثباتنا في عبادة الله وعدم الخضوع له.", "القديس أندراوس أسقف قيصرية"], ["المسيح جاء لكي يجدد الخليقة كلها، ويقود الإنسان إلى الحياة التي لا تزول.", "القديس أثناسيوس الرسولي"]];
+var R_EN=[["It would be better if our lives were so pure that the grace of the Holy Spirit served as the book written in our hearts.", "St. John Chrysostom"], ["It is not enough to hear Christ's commandments; they must become a life we actually live.", "St. John Chrysostom"], ["Humility is the mother, foundation, and root of all virtues.", "St. John Chrysostom"], ["Following Christ is not merely words, but imitating Him in our actions.", "St. John Chrysostom"], ["Christ did not come asking you to be sinless before coming to Him; He came to heal and free you.", "St. John Chrysostom"], ["The Son of God became man so that we might become children of God by grace.", "St. Athanasius the Apostolic"], ["Union with Christ is not merely knowing about Him, but true communion with Him that grants us life.", "St. Cyril the Great"], ["Christ drew near to our human nature, not to remain like us in its weakness, but to raise it to new life.", "St. Cyril of Alexandria"], ["True humility makes a person poor in pride and rich in the love of God.", "St. Cyril of Alexandria"], ["Nothing makes us as like God as mercy; therefore let us imitate Him in His mercy.", "St. John Chrysostom"], ["When we forgive others, we do not only do good to them—we rescue our own souls from the bitterness of anger.", "St. John Chrysostom"], ["Christ took a mortal body so that He might offer it to death on our behalf and grant us immortality.", "St. Athanasius the Apostolic"], ["Nothing can separate us from the love of God except our own choice to turn away from Him.", "St. John Chrysostom"], ["Christ is Life by nature, and whoever is united with Him receives life.", "St. Cyril of Alexandria"], ["Christ gathered us into Himself so that we would not be divided, but one in love and faith.", "St. Cyril of Alexandria"], ["The Church is not merely a gathering, but a life of communion, love, and giving.", "St. John Chrysostom"], ["Do not credit yourself for the good you do, for everything you have is a gift from God.", "St. John Chrysostom"], ["True faith does not stop before hardships; rather, it makes a person cling all the more to God.", "St. John Chrysostom"], ["What matters is not that your life be easy, but that your life be pleasing to God.", "St. John Chrysostom"], ["The Gospel is not a human message, but the power of God for salvation.", "St. John Chrysostom"], ["God does not ask humanity to save itself; He came to us Himself to renew our nature.", "St. Athanasius the Apostolic"], ["It is not enough to be upright in your relationship with God; that uprightness must shine in your love for others.", "St. John Chrysostom"], ["The Cross that the world views as weakness is in truth the power and wisdom of God.", "St. John Chrysostom"], ["Different gifts do not divide us; they make us members who each need one another.", "St. John Chrysostom"], ["Love is not shown in words alone, but in bearing with others and carrying their weaknesses.", "St. John Chrysostom"], ["True giving is not merely giving from your surplus, but having a generous heart.", "St. John Chrysostom"], ["Humility guards virtue from turning into a reason for pride.", "St. John Chrysostom"], ["Christian freedom is not doing whatever we please, but no longer being slaves to sin.", "St. John Chrysostom"], ["Nothing equals humility; it is the foundation of all virtues.", "St. John Chrysostom"], ["Christ did not abandon His glory; He veiled His glory and took the form of a servant for our salvation.", "St. Athanasius the Apostolic"], ["Thanksgiving is not only for times of ease and joy, but the posture of a believing heart in every circumstance.", "St. John Chrysostom"], ["Whoever leads others must first begin by leading himself.", "St. John Chrysostom"], ["Do not let your youth be a barrier to virtue, for a pure life is what gives a person true dignity.", "St. John Chrysostom"], ["Love does not treat another person as a mere servant or slave, but sees in him a brother.", "St. John Chrysostom"], ["God did not send us merely a prophet or an angel; He sent His own Son to lift us up to Him.", "St. John Chrysostom"], ["Faith enables us to see what the eye cannot see and to hold fast to what we have not yet reached.", "St. John Chrysostom"], ["Trial does not only reveal how much we can endure; it also reveals what is within us.", "St. John Chrysostom"], ["Christ became man so that humanity might become a partaker of the divine life by grace.", "St. Athanasius the Apostolic"], ["We cannot claim to know God while refusing to live in His love.", "St. Cyril of Alexandria"], ["The glory of God is a human being fully alive, and the life of humanity is the vision of God.", "St. Irenaeus"], ["Victory in the Book of Revelation is not the world's triumph by power, but the believer's steadfastness in Christ amid tribulation.", "St. Andrew of Caesarea"], ["We should not be preoccupied with symbols of evil as much as with standing firm in worshiping God and refusing to yield to it.", "St. Andrew of Caesarea"], ["Christ came to renew all of creation and lead humanity into the life that never fades.", "St. Athanasius the Apostolic"]];
+var T={
+ ar:{
+  dir:"rtl",locale:"ar-EG",title:"الحب إتولد 👶❤️",langBtn:"🌐 English",langAria:"Switch to English",
+  heroT:"الحب إتولد 👶❤️",heroP:"العهد الجديد كله في صوم الميلاد. كل يوم خطوة، والنجمة بتنوّر.",
+  instB:"ثبّت التطبيق على جهازك",instS:"يفتح بسرعة ويشتغل أوفلاين بدون إنترنت",instGo:"تثبيت",instClose:"إغلاق",
+  instTip:'لتثبيت التطبيق على الآيفون: اضغط على زر المشاركة <b>(⬆️)</b> في المتصفح ثم اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.',
+  stPct:"من العهد الجديد",stDn:"يوم خلصته",stSt:"أيام ورا بعض",
+  fin:"🎉 خلصت العهد الجديد كله! المجد لله. عيد ميلاد مجيد ⭐",
+  nxAria:"اليوم التالي",pvAria:"اليوم السابق",
+  dayOf:function(c,d){return "اليوم "+nf.format(c)+" من "+nf.format(d)},
+  today:" · النهارده",tomorrow:" · بنبدأ بكرة",
+  readLbl:"اقرأ ‹",
+  mkDone:"✅ خلصت قراية اليوم (اضغط للتراجع)",mkTodo:"خلصت قراية اليوم",
+  spH:"من أقوال الآباء",spSm:"تأمل مصاحب لقراءة اليوم. الصياغات تأملية وبعضها تلخيص لمعنى من تعليم الآباء، وليست اقتباسات حرفية موثقة.",
+  qOpen:"«",qClose:"»",
+  grH:"رحلة الـ 43 يوم",tileAria:function(n){return "يوم "+nf.format(n)},
+  bkH:"أسفار العهد الجديد",
+  ftV:"«أَيُّهَا السَّيِّدُ، قَدْ صَارَ كَمَا أَمَرْتَ، وَيُوجَدُ أَيْضاً مَكَانٌ» (لو 14: 22)",
+  th:"تغيير الوضع: فاتح / داكن",
+  fsM:"أ-",fsP:"أ+",fsMAria:"تصغير الخط",fsPAria:"تكبير الخط",closeAria:"إغلاق",
+  chLbl:function(c){return "أصحاح "+nf.format(c)},
+  loading:"جاري تحميل نص الكتاب المقدس...",
+  errMsg:"تعذّر تحميل النص. تأكد من الاتصال بالإنترنت أول مرة ثم حاول مجددًا.",retry:"إعادة المحاولة",
+  prevCh:"الأصحاح السابق",nextCh:"الأصحاح التالي",doneCh:"✅ خلصت قراية اليوم",closeCh:"إغلاق",
+  src:"الكتاب المقدس — الترجمة العربية (فان دايك)"
+ },
+ en:{
+  dir:"ltr",locale:"en-US",title:"Love Is Born 👶❤️",langBtn:"🌐 عربي",langAria:"التبديل إلى العربية",
+  heroT:"Love Is Born 👶❤️",heroP:"The entire New Testament during the Nativity Fast. One step each day, and the star shines brighter.",
+  instB:"Install the app on your device",instS:"Opens fast and works offline without internet",instGo:"Install",instClose:"Close",
+  instTip:'To install on iPhone: tap the Share button <b>(⬆️)</b> in Safari, then choose <b>“Add to Home Screen”</b>.',
+  stPct:"of New Testament",stDn:"days completed",stSt:"day streak",
+  fin:"🎉 You finished the entire New Testament! Glory to God. Merry Christmas ⭐",
+  nxAria:"Next day",pvAria:"Previous day",
+  dayOf:function(c,d){return "Day "+nf.format(c)+" of "+nf.format(d)},
+  today:" · Today",tomorrow:" · Starts tomorrow",
+  readLbl:"Read ›",
+  mkDone:"✅ Completed today's reading (tap to undo)",mkTodo:"Mark today's reading as done",
+  spH:"Sayings of the Church Fathers",spSm:"A companion reflection for today's reading. Some phrasings are reflective summaries of patristic teaching rather than verbatim citations.",
+  qOpen:"“",qClose:"”",
+  grH:"43-Day Journey",tileAria:function(n){return "Day "+nf.format(n)},
+  bkH:"New Testament Books",
+  ftV:"“Lord, it is done as you commanded, and there is still room.” (Luke 14:22)",
+  th:"Toggle Theme: Light / Dark",
+  fsM:"A-",fsP:"A+",fsMAria:"Decrease font size",fsPAria:"Increase font size",closeAria:"Close",
+  chLbl:function(c){return "Ch. "+nf.format(c)},
+  loading:"Loading Bible text...",
+  errMsg:"Could not load the text. Check your internet connection for the first load and try again.",retry:"Retry",
+  prevCh:"Previous Chapter",nextCh:"Next Chapter",doneCh:"✅ Done for today",closeCh:"Close",
+  src:"The Holy Bible — World English Bible (WEB)"
+ }
+};
+var lang="ar";
+try{if(localStorage.getItem("yam_lang")==="en")lang="en"}catch(x){}
 var N=260,D=43,S=new Date(2026,10,25);
 var C=[];B.forEach(function(b,i){for(var c=1;c<=b[1];c++)C.push([i,c])});
 var days=[];
@@ -206,18 +271,42 @@ try{done=JSON.parse(localStorage.getItem("yam_done")||"[]");notes=JSON.parse(loc
 if(!Array.isArray(done))done=[];
 function save(){try{localStorage.setItem("yam_done",JSON.stringify(done));localStorage.setItem("yam_notes",JSON.stringify(notes))}catch(x){}}
 var $=function(i){return document.getElementById(i)};
-var nf=new Intl.NumberFormat("ar-EG");
+var nf=new Intl.NumberFormat(T[lang].locale);
+function bkName(i){return lang=="en"?B_EN[i]:B[i][0]}
+function applyLang(){
+ var t=T[lang];
+ nf=new Intl.NumberFormat(t.locale);
+ document.documentElement.lang=lang;
+ document.documentElement.dir=t.dir;
+ document.title=t.title;
+ $("lang-btn").textContent=t.langBtn;
+ $("lang-btn").setAttribute("aria-label",t.langAria);
+ $("h-t").textContent=t.heroT;$("h-p").textContent=t.heroP;
+ $("inst-b").textContent=t.instB;$("inst-s").textContent=t.instS;
+ $("inst-go").textContent=t.instGo;$("inst-x").setAttribute("aria-label",t.instClose);
+ $("inst-tip").innerHTML=t.instTip;
+ $("st-pct").textContent=t.stPct;$("st-dn").textContent=t.stDn;$("st-st").textContent=t.stSt;
+ $("fin").textContent=t.fin;
+ $("nx").setAttribute("aria-label",t.nxAria);$("pv").setAttribute("aria-label",t.pvAria);
+ $("sp-h").textContent=t.spH;$("sp-sm").textContent=t.spSm;
+ $("gr-h").textContent=t.grH;$("bk-h").textContent=t.bkH;
+ $("ft-v").textContent=t.ftV;$("th").textContent=t.th;
+ $("fs-m").textContent=t.fsM;$("fs-p").textContent=t.fsP;
+ $("fs-m").setAttribute("aria-label",t.fsMAria);$("fs-p").setAttribute("aria-label",t.fsPAria);
+ $("rdr-x").setAttribute("aria-label",t.closeAria);
+}
 function dayOf(){var t=new Date(),m=new Date(t.getFullYear(),t.getMonth(),t.getDate());return Math.round((m-S)/864e5)}
 var td=dayOf(),cur=Math.min(Math.max(td,0),D-1);
-function dstr(i){var d=new Date(S.getTime()+i*864e5);return d.toLocaleDateString("ar-EG",{weekday:"long",day:"numeric",month:"long"})}
-function rng(g){var b=B[g.b][0];if(g.b>=0&&B[g.b][1]==1)return b;return b+" "+nf.format(g.s)+(g.e>g.s?"–"+nf.format(g.e):"")}
+function dstr(i){var d=new Date(S.getTime()+i*864e5);return d.toLocaleDateString(T[lang].locale,{weekday:"long",day:"numeric",month:"long"})}
+function rng(g){var b=bkName(g.b);if(g.b>=0&&B[g.b][1]==1)return b;return b+" "+nf.format(g.s)+(g.e>g.s?"–"+nf.format(g.e):"")}
 function render(){
- var d=days[cur],dc=done.indexOf(cur)>-1;
- $("dt").textContent="اليوم "+nf.format(cur+1)+" من "+nf.format(D);
- $("dd").textContent=dstr(cur)+(cur==td?" · النهارده":cur>td?"":"")+(td<0&&cur==0?" · بنبدأ بكرة":"");
- $("rd").innerHTML=d.g.map(function(g,gi){return '<button type="button" class="read" data-gi="'+gi+'"><i>📖</i><span>'+rng(g)+'</span><em>اقرأ ‹</em></button>'}).join("");
- var b=$("mk");b.textContent=dc?"✅ خلصت قراية اليوم (اضغط للتراجع)":"خلصت قراية اليوم";b.className="btn"+(dc?" done":"");
- $("rf").textContent="«"+R[cur][0]+"»";$("rw").textContent=R[cur][1];
+ var t=T[lang],d=days[cur],dc=done.indexOf(cur)>-1;
+ $("dt").textContent=t.dayOf(cur+1,D);
+ $("dd").textContent=dstr(cur)+(cur==td?t.today:"")+(td<0&&cur==0?t.tomorrow:"");
+ $("rd").innerHTML=d.g.map(function(g,gi){return '<button type="button" class="read" data-gi="'+gi+'"><i>📖</i><span>'+rng(g)+'</span><em>'+t.readLbl+'</em></button>'}).join("");
+ var b=$("mk");b.textContent=dc?t.mkDone:t.mkTodo;b.className="btn"+(dc?" done":"");
+ var q=(lang=="en"?R_EN:R)[cur];
+ $("rf").textContent=t.qOpen+q[0]+t.qClose;$("rw").textContent=q[1];
  $("pv").disabled=cur==0;$("nx").disabled=cur==D-1;
  var ch=0;done.forEach(function(i){ch+=days[i].e-days[i].a+1});
  var p=Math.round(ch/N*100);
@@ -227,11 +316,11 @@ function render(){
  $("st").textContent=nf.format(st);
  $("s1").setAttribute("offset",ch/N);$("s2").setAttribute("offset",ch/N);
  $("fin").className="fin"+(done.length==D?" show":"");
- var gr="";for(var i=0;i<D;i++)gr+='<button class="tile'+(done.indexOf(i)>-1?" on":"")+(i==td?" today":"")+(i==cur?" sel":"")+'" data-i="'+i+'" aria-label="يوم '+nf.format(i+1)+'">'+nf.format(i+1)+'</button>';
+ var gr="";for(var i=0;i<D;i++)gr+='<button class="tile'+(done.indexOf(i)>-1?" on":"")+(i==td?" today":"")+(i==cur?" sel":"")+'" data-i="'+i+'" aria-label="'+t.tileAria(i+1)+'">'+nf.format(i+1)+'</button>';
  $("gr").innerHTML=gr;
  var rd=new Array(N).fill(0);done.forEach(function(i){for(var k=days[i].a;k<=days[i].e;k++)rd[k]=1});
- var off=0,h="";B.forEach(function(b){var c=0;for(var k=0;k<b[1];k++)c+=rd[off+k];off+=b[1];
-  var f=c==b[1];h+='<div class="chip'+(f?" full":"")+'"><em style="width:'+Math.round(c/b[1]*100)+'%"></em><span>'+b[0]+(f?" ✓":"")+'</span></div>'});
+ var off=0,h="";B.forEach(function(b,bi){var c=0;for(var k=0;k<b[1];k++)c+=rd[off+k];off+=b[1];
+  var f=c==b[1];h+='<div class="chip'+(f?" full":"")+'"><em style="width:'+Math.round(c/b[1]*100)+'%"></em><span>'+bkName(bi)+(f?" ✓":"")+'</span></div>'});
  $("bk").innerHTML=h;
 }
 $("mk").onclick=function(){var i=done.indexOf(cur);if(i>-1)done.splice(i,1);else{done.push(cur);if(cur<D-1&&cur==td)cur++}save();render()};
@@ -239,41 +328,48 @@ $("pv").onclick=function(){if(cur>0){cur--;render()}};
 $("nx").onclick=function(){if(cur<D-1){cur++;render()}};
 $("gr").onclick=function(e){var t=e.target.closest(".tile");if(t){cur=+t.dataset.i;render();window.scrollTo(0,0)}};
 $("th").onclick=function(){var r=document.documentElement,d=r.getAttribute("data-theme");var dark=d?d=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.setAttribute("data-theme",dark?"light":"dark")};
-var NT=null,NTp=null,rList=[],rIdx=0,rFs=19;
+$("lang-btn").onclick=function(){
+ lang=lang=="ar"?"en":"ar";
+ try{localStorage.setItem("yam_lang",lang)}catch(x){}
+ applyLang();render();
+ if($("rdr").classList.contains("open"))renderReader();
+};
+var NT={ar:null,en:null},NTp={ar:null,en:null},rList=[],rIdx=0,rFs=19;
 try{rFs=Math.min(28,Math.max(15,+localStorage.getItem("yam_fs")||19))}catch(x){}
-function loadNT(){
- if(NT)return Promise.resolve(NT);
- if(!NTp)NTp=fetch("./nt-svd.json").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){NT=d;return d}).catch(function(e){NTp=null;throw e});
- return NTp;
+function loadNT(l){
+ if(NT[l])return Promise.resolve(NT[l]);
+ var url=l=="en"?"./nt-web.json":"./nt-svd.json";
+ if(!NTp[l])NTp[l]=fetch(url).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){NT[l]=d;return d}).catch(function(e){NTp[l]=null;throw e});
+ return NTp[l];
 }
 function applyFs(){$("rdr-b").style.fontSize=rFs+"px";try{localStorage.setItem("yam_fs",String(rFs))}catch(x){}}
 function renderReader(){
- var item=rList[rIdx];if(!item)return;
- var bName=B[item.b][0],single=B[item.b][1]==1;
+ var t=T[lang],curLang=lang,item=rList[rIdx];if(!item)return;
+ var bName=bkName(item.b),single=B[item.b][1]==1;
  $("rdr-t").textContent=single?bName:(bName+" "+nf.format(item.c));
  var tabs="";
  for(var i=0;i<rList.length;i++){
-  var it=rList[i],lbl=B[it.b][1]==1?B[it.b][0]:(rList.some(function(x){return x.b!=it.b})?(B[it.b][0]+" "+nf.format(it.c)):("أصحاح "+nf.format(it.c)));
+  var it=rList[i],lbl=B[it.b][1]==1?bkName(it.b):(rList.some(function(x){return x.b!=it.b})?(bkName(it.b)+" "+nf.format(it.c)):t.chLbl(it.c));
   tabs+='<button type="button" class="rdr-tab'+(i==rIdx?" on":"")+'" data-ri="'+i+'">'+lbl+'</button>';
  }
  $("rdr-tabs").innerHTML=tabs;
  $("rdr-tabs").style.display=rList.length>1?"flex":"none";
  var act=$("rdr-tabs").querySelector(".on");if(act)act.scrollIntoView({inline:"center",block:"nearest"});
  var body=$("rdr-b");applyFs();
- if(!NT){
-  body.innerHTML='<div class="rdr-msg">جاري تحميل نص الكتاب المقدس...</div>';
-  loadNT().then(renderReader).catch(function(){body.innerHTML='<div class="rdr-msg">تعذّر تحميل النص. تأكد من الاتصال بالإنترنت أول مرة ثم حاول مجددًا.<br><br><button type="button" class="rdr-ctl" id="rdr-retry">إعادة المحاولة</button></div>';var rt=$("rdr-retry");if(rt)rt.onclick=renderReader});
+ if(!NT[curLang]){
+  body.innerHTML='<div class="rdr-msg">'+t.loading+'</div>';
+  loadNT(curLang).then(function(){if(lang===curLang)renderReader()}).catch(function(){if(lang!==curLang)return;body.innerHTML='<div class="rdr-msg">'+t.errMsg+'<br><br><button type="button" class="rdr-ctl" id="rdr-retry">'+t.retry+'</button></div>';var rt=$("rdr-retry");if(rt)rt.onclick=renderReader});
   return;
  }
- var verses=NT[item.b][item.c-1]||[];
- var h=verses.map(function(v,vi){return '<p class="rdr-v"><sup>'+nf.format(vi+1)+'</sup>'+v+'</p>'}).join("");
+ var verses=NT[curLang][item.b][item.c-1]||[];
+ var h=verses.map(function(v,vi){return v?'<p class="rdr-v"><sup>'+nf.format(vi+1)+'</sup>'+v+'</p>':''}).join("");
  var isLast=rIdx==rList.length-1,dc=done.indexOf(cur)>-1;
  h+='<div class="rdr-ft">';
- h+='<button type="button" id="rdr-pv"'+(rIdx==0?' disabled':'')+'>الأصحاح السابق</button>';
- if(!isLast)h+='<button type="button" class="pri" id="rdr-nx">الأصحاح التالي</button>';
- else if(!dc)h+='<button type="button" class="ok" id="rdr-done">✅ خلصت قراية اليوم</button>';
- else h+='<button type="button" class="pri" id="rdr-close2">إغلاق</button>';
- h+='</div><div class="rdr-src">الكتاب المقدس — الترجمة العربية (فان دايك)</div>';
+ h+='<button type="button" id="rdr-pv"'+(rIdx==0?' disabled':'')+'>'+t.prevCh+'</button>';
+ if(!isLast)h+='<button type="button" class="pri" id="rdr-nx">'+t.nextCh+'</button>';
+ else if(!dc)h+='<button type="button" class="ok" id="rdr-done">'+t.doneCh+'</button>';
+ else h+='<button type="button" class="pri" id="rdr-close2">'+t.closeCh+'</button>';
+ h+='</div><div class="rdr-src">'+t.src+'</div>';
  body.innerHTML=h;body.scrollTop=0;
  $("rdr-pv").onclick=function(){if(rIdx>0){rIdx--;renderReader()}};
  var nx=$("rdr-nx");if(nx)nx.onclick=function(){if(rIdx<rList.length-1){rIdx++;renderReader()}};
@@ -297,7 +393,7 @@ $("rdr").onclick=function(e){if(e.target===$("rdr"))closeReader()};
 $("fs-m").onclick=function(){rFs=Math.max(15,rFs-2);applyFs()};
 $("fs-p").onclick=function(){rFs=Math.min(28,rFs+2);applyFs()};
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("rdr").classList.contains("open"))closeReader()});
-render();
+applyLang();render();
 if("serviceWorker" in navigator&&(location.protocol=="https:"||location.hostname=="localhost")){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 (function(){
  var isStandalone=matchMedia("(display-mode:standalone)").matches||navigator.standalone===true;
